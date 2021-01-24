@@ -1,0 +1,185 @@
+#reg_tnx{
+	margin-top: 110px;
+	font-size: 20px;
+}
+
+.rx_content{
+	min-height: calc(100vh - 352px);
+}
+
+.rx_chat_content{
+	min-height: calc(100vh - 102px);
+}
+
+.rx_edit_interests_content{
+	min-height: calc(100vh - 462px);
+}
+
+.rx_search_content{
+  min-height: calc(100vh - 102px);
+}
+
+.rx_cursor_default{
+	cursor: default;
+}
+
+#rx_activation_response{
+	display:flex;
+	align-items:center;
+	flex-direction: column;
+	font-size:30px;
+	padding-top: 150px;
+}
+
+#rec_pwd_inp
+{
+	margin-bottom: 10px;
+}
+
+#new_pwd_btm
+{
+	margin-bottom: 20px;
+}
+
+.btn
+{
+	outline:none !important;
+}
+
+.scrollbar-wrapper.tab-content {
+	overflow-y: auto;
+	height: 700px;
+}
+
+.timeline-cover .timeline-nav-bar .follow-me li:first-child {
+	padding: 13px 15px;
+}
+
+.btn-my{
+	padding: 7px 25px;
+	border: none;
+	font-size: 14px;
+	position: relative;
+	font-weight: 600;
+	outline: none;
+	border-radius: 30px;
+}
+
+.all_comments {
+	margin-left: 30px;
+}
+
+.post-content .post-container .post-detail .post-comment {
+	position: relative;
+}
+
+.dell {
+	position: absolute;
+	top: 0;
+	right: 0;
+}
+#notification_red{
+	color: #dcb5b5f5;
+}
+
+#notif_horn
+{
+	margin-right: 5px;
+	color: red;
+}
+
+.img-responsive {
+	width: 100%;
+	height: 95px;
+}
+
+.edit-map {
+	height: 400px;
+}
+
+ul.album-photos .post-content:before {
+	content: none;
+}
+
+ul.album-photos .post-content .post-detail {
+	margin: 0;
+}
+
+ul.album-photos p {
+	font-size: 15px;
+}
+
+#map_people_nearby
+{
+	height: 500px;
+}
+
+#map_about{
+    height: 400px;
+}
+
+#markerLayer img {
+	border: 1px solid black !important;
+	border-radius: 50%;
+}
+
+.about-profile .about-content-block .organization .work-info {
+	margin-bottom: 15px;
+}
+
+.about-profile .about-content-block .organization .work-info .social-links h5 {
+	display: inline-block;
+}
+
+.post-content .post-container .post-detail .post-text p {
+	word-break: break-all;
+}
+
+.post-content .post-container .post-detail .post-comment p {
+	word-break: break-all;
+	padding-left: 10px;
+	padding-right: 30px;
+}
+
+.filter_lable {
+	margin-left: 10px;
+}
+
+.user_span_info {
+	margin-left: 5px;
+	display: block;
+}
+
+.user_span_info strong{
+	margin-right: 4px;
+}
+
+.user_div_info {
+	margin-bottom: 10px;
+	margin-top: 5px;
+}
+
+.sorter_tab{
+	text-align: center;
+	font-size: 22px;
+}
+
+.fa-angle-up{
+	margin-left: 7px;
+}
+
+.fa-angle-down{
+	margin-right: 5px;
+}
+
+.active_arrow {
+	color: rgb(62, 177, 19);
+}
+
+.no_pading{
+	padding: 0px !important;
+}
+
+.timeline-cover .navbar-mobile .mobile-menu ul li::after {
+	content: none;
+}

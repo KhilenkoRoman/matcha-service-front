@@ -1,0 +1,150 @@
+{% extends "base.html" %}
+{% block title %}Edit profile {{ data.user.first_name }} {{ data.user.last_name }} | Advanced - Matcha 40k{% endblock %}
+{% block scripts %}
+	<script src="{{ url_for('static', filename='js/users.js') }}"></script>
+{% endblock %}
+{% block main %}
+
+	<div class="container rx_chat_content">
+
+	  <!-- Timeline
+	  ================================================= -->
+	  <div class="timeline">
+		{% include('parts/header_bottom.html') %}
+		<div id="page-contents">
+		  <div class="row">
+			<div class="col-md-3">
+				{% include "parts/edit_left_sidebar.html" %}
+			</div>
+			<div class="col-md-7">
+
+			  <!-- Basic Information
+			  ================================================= -->
+			  <div class="edit-profile-container">
+				<div class="block-title">
+				  <h4 class="grey"><i class="icon ion-android-checkmark-circle"></i>Edit advanced information</h4>
+				  <div class="line"></div>
+				  <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate</p>
+				  <div class="line"></div>
+				</div>
+				<div class="edit-block">
+					<div class="text-red" id="error"></div>
+				  <form name="advanced-info" id="advanced-info" class="form-inline" onsubmit="edit_advanced(this); return false;">
+					<div class="row">
+					  <div class="form-group col-xs-6">
+						<label for="phone">Phone</label>
+						<input id="phone" class="form-control input-group-lg" type="text" name="phone" title="Enter phone number" placeholder="Phone number" value="{% if data.about.phone %}{{ data.about.phone }}{% endif %}" />
+					  </div>
+					  <div class="form-group col-xs-6">
+						<label for="language" class="">Language</label>
+						<input id="language" class="form-control input-group-lg" type="text" name="language" title="Enter language" placeholder="Language" value="{% if data.about.language %}{{ data.about.language }}{% endif %}" />
+					  </div>
+					</div>
+					<div class="row">
+					  <div class="form-group col-xs-6">
+						<label for="status">Status</label>
+						<select id="status" name="status" class="form-control">
+							<option value="" selected>Select your status</option>
+							<option value="Married" {% if data.about.status == 'Married' %}selected{% endif %}>Married</option>
+							<option value="Single" {% if data.about.status == 'Single' %}selected{% endif %}>Single</option>
+							<option value="In a relationship" {% if data.about.status == 'In a relationship' %}selected{% endif %}>In a relationship</option>
+							<option value="Engaged" {% if data.about.status == 'Engaged' %}selected{% endif %}>Engaged</option>
+							<option value="In a civil union" {% if data.about.status == 'In a civil union' %}selected{% endif %}>In a civil union</option>
+							<option value="In a domestic partnership" {% if data.about.status == 'In a domestic partnership' %}selected{% endif %}>In a domestic partnership</option>
+							<option value="In an open relationship" {% if data.about.status == 'In an open relationship' %}selected{% endif %}>In an open relationship</option>
+							<option value="Complicated" {% if data.about.status == "Complicated" %}selected{% endif %}>It's complicated</option>
+							<option value="Separated" {% if data.about.status == 'Separated' %}selected{% endif %}>Separated</option>
+							<option value="Divorced" {% if data.about.status == 'Divorced' %}selected{% endif %}>Divorced</option>
+							<option value="Widowed" {% if data.about.status == 'Widowed' %}selected{% endif %}>Widowed</option>
+						</select>
+						<!--<input id="email" class="form-control input-group-lg" type="text" name="email" title="Enter Email" placeholder="My Email" value="{{ data.user.email }}" />-->
+					  </div>
+					  <div class="form-group col-xs-6">
+						<label for="political">Political</label>
+						<input id="political" class="form-control input-group-lg" type="text" name="political" title="Enter political" placeholder="My political" value="{% if data.about.political %}{{ data.about.political }}{% endif %}" />
+					  </div>
+					</div>
+					<div class="row">
+						<div class="form-group col-xs-12">
+							<label for="fb">Facebook</label>
+							<input id="fb" type="text" name="fb" class="form-control input-group-lg" title="Facebook" placeholder="Facebook" value="{% if data.about.fb %}{{ data.about.fb }}{% endif %}">
+						</div>
+					</div>
+					<div class="row">
+						<div class="form-group col-xs-12">
+							<label for="tw">Twitter</label>
+							<input id="tw" type="text" name="tw" class="form-control input-group-lg" title="Twitter" placeholder="Twitter" value="{% if data.about.tw %}{{ data.about.tw }}{% endif %}">
+						</div>
+					</div>
+					<div class="row">
+						<div class="form-group col-xs-12">
+							<label for="inst">Instagram</label>
+							<input id="inst" type="text" name="inst" class="form-control input-group-lg" title="Instagram" placeholder="Instagram" value="{% if data.about.inst %}{{ data.about.inst }}{% endif %}">
+						</div>
+					</div>
+					<div class="row">
+						<div class="form-group col-xs-12">
+							<label for="site">Site</label>
+							<input id="site" type="text" name="site" class="form-control input-group-lg" title="Site" placeholder="Site" value="{% if data.about.site %}{{ data.about.site }}{% endif %}">
+						</div>
+					</div>
+					<div class="row">
+					  <div class="form-group col-xs-12">
+						<label for="hobbies">Hobbies</label>
+						<textarea id="hobbies" name="hobbies" class="form-control" placeholder="Your hobbies" rows="4" cols="400">{% if data.about.hobbies %}{{ data.about.hobbies }}{% endif %}</textarea>
+					  </div>
+					</div>
+					<div class="row">
+					  <div class="form-group col-xs-12">
+						<label for="tv_shows">TV Shows</label>
+						<textarea id="tv_shows" name="tv_shows" class="form-control" placeholder="Your TV Shows" rows="4" cols="400">{% if data.about.tv_shows %}{{ data.about.tv_shows }}{% endif %}</textarea>
+					  </div>
+					</div>
+					<div class="row">
+					  <div class="form-group col-xs-12">
+						<label for="movies">Movies</label>
+						<textarea id="movies" name="movies" class="form-control" placeholder="Your movies" rows="4" cols="400">{% if data.about.movies %}{{ data.about.movies }}{% endif %}</textarea>
+					  </div>
+					</div>
+					<div class="row">
+					  <div class="form-group col-xs-12">
+						<label for="games">Games</label>
+						<textarea id="games" name="games" class="form-control" placeholder="Your games" rows="4" cols="400">{% if data.about.games %}{{ data.about.games }}{% endif %}</textarea>
+					  </div>
+					</div>
+					<div class="row">
+					  <div class="form-group col-xs-12">
+						<label for="music">Music</label>
+						<textarea id="music" name="music" class="form-control" placeholder="Your music" rows="4" cols="400">{% if data.about.music %}{{ data.about.music }}{% endif %}</textarea>
+					  </div>
+					</div>
+					<div class="row">
+					  <div class="form-group col-xs-12">
+						<label for="books">Books</label>
+						<textarea id="books" name="books" class="form-control" placeholder="Your books" rows="4" cols="400">{% if data.about.books %}{{ data.about.books }}{% endif %}</textarea>
+					  </div>
+					</div>
+					<div class="row">
+					  <div class="form-group col-xs-12">
+						<label for="writers">Writers</label>
+						<textarea id="writers" name="writers" class="form-control" placeholder="Your writers" rows="4" cols="400">{% if data.about.writers %}{{ data.about.writers }}{% endif %}</textarea>
+					  </div>
+					</div>
+					<div class="row">
+					  <div class="form-group col-xs-12">
+						<label for="others">Others</label>
+						<textarea id="others" name="others" class="form-control" placeholder="Your others" rows="4" cols="400">{% if data.about.others %}{{ data.about.others }}{% endif %}</textarea>
+					  </div>
+					</div>
+					<button type="submit" class="btn btn-primary">Save Changes</button>
+				  </form>
+				</div>
+			  </div>
+			</div>
+			{% include "parts/suggestions.html" %}
+		  </div>
+		</div>
+	  </div>
+	</div>
+
+{% endblock %}

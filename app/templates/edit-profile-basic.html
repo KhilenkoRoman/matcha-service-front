@@ -1,0 +1,112 @@
+{% extends "base.html" %}
+{% block title %}Edit profile {{ data.user.first_name }} {{ data.user.last_name }} - Matcha 40k{% endblock %}
+{% block scripts %}
+	<script src="{{ url_for('static', filename='js/users.js') }}"></script>
+{% endblock %}
+{% block main %}
+
+	<div class="container rx_chat_content">
+
+	  <!-- Timeline
+	  ================================================= -->
+	  <div class="timeline">
+		{% include('parts/header_bottom.html') %}
+		<div id="page-contents">
+		  <div class="row">
+			<div class="col-md-3">
+				{% include "parts/edit_left_sidebar.html" %}
+			</div>
+			<div class="col-md-7">
+
+			  <!-- Basic Information
+			  ================================================= -->
+			  <div class="edit-profile-container">
+				<div class="block-title">
+				  <h4 class="grey"><i class="icon ion-android-checkmark-circle"></i>Edit basic information</h4>
+				  <div class="line"></div>
+				  <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate</p>
+				  <div class="line"></div>
+				</div>
+				<div class="edit-block">
+					<div class="text-red" id="error"></div>
+				  <form name="basic-info" id="basic-info" class="form-inline" onsubmit="edit_basic(this); return false;">
+					<div class="row">
+					  <div class="form-group col-xs-6">
+						<label for="firstname">First name</label>
+						<input id="firstname" class="form-control input-group-lg" type="text" name="firstname" title="Enter first name" placeholder="First name" value="{{ data.user.first_name }}" />
+					  </div>
+					  <div class="form-group col-xs-6">
+						<label for="lastname" class="">Last name</label>
+						<input id="lastname" class="form-control input-group-lg" type="text" name="lastname" title="Enter last name" placeholder="Last name" value="{{ data.user.last_name }}" />
+					  </div>
+					</div>
+					<div class="row">
+					  <div class="form-group col-xs-12">
+						<label for="email">My email</label>
+						<input id="email" class="form-control input-group-lg" type="text" name="email" title="Enter Email" placeholder="My Email" value="{{ data.user.email }}" />
+					  </div>
+					</div>
+					<div class="form-group gender">
+						<span class="custom-label"><strong>I am a: </strong></span>
+						<label class="radio-inline">
+							<input type="radio" name="optradio" value="1" {% if data.user.gender == 1 %}checked{% endif %}>Male
+						</label>
+						<label class="radio-inline">
+							<input type="radio" name="optradio" value="2" {% if data.user.gender == 2 %}checked{% endif %}>Female
+						</label>
+					</div>
+					<br>
+					<div class="form-group gender">
+						<span class="custom-label"><strong>Interested In: </strong></span>
+						<label class="radio-inline">
+							<input type="radio" name="sex" value="0" {% if data.user.sex_pref == 0 %}checked{% endif %}>Men and Women
+						</label>
+						<label class="radio-inline">
+							<input type="radio" name="sex" value="1" {% if data.user.sex_pref == 1 %}checked{% endif %}>Women
+						</label>
+						<label class="radio-inline">
+							<input type="radio" name="sex" value="2" {% if data.user.sex_pref == 2 %}checked{% endif %}>Men
+						</label>
+					</div>
+					<div class="row">
+					  <div class="form-group col-xs-6">
+						{% set location = data.about.location %}
+						{% if location %}
+							{% set country = data.about.location.split(" ")[1] %}
+							{% set city = data.about.location.split(" ")[0] %}
+						{% endif %}
+						<label for="city"> My city</label>
+						<input id="city" class="form-control input-group-lg" type="text" name="city" title="Enter city" placeholder="Your city"{% if location %} value="{{ city }}"{% endif %}/>
+					  </div>
+					  <div class="form-group col-xs-6">
+						<label for="country">My country</label>
+						<input id="country" class="form-control input-group-lg" type="text" name="country" title="Enter country" placeholder="Your country"{% if location %} value="{{ country }}"{% endif %}/>
+					  </div>
+					</div>
+					<div class="row">
+					  <div class="form-group col-xs-12">
+						<label for="my-info">About me</label>
+						<textarea id="my-info" name="information" class="form-control" placeholder="Some texts about me" rows="4" cols="400">{% if data.about.biography %}{{ data.about.biography }}{% endif %}</textarea>
+					  </div>
+					</div>
+					<div class="row">
+						<div class="form-group col-xs-12">
+							<label for="theme">Theme site</label>
+							<select class="form-control" id="theme" name="theme">
+								<option value="light" {% if data.user.theme == "light" %}selected{% endif %}>Light</option>
+								<option value="dark" {% if data.user.theme == "dark" %}selected{% endif %}>Dark</option>
+							</select>
+						</div>
+					</div>
+					<button type="submit" class="btn btn-primary">Save Changes</button>
+				  </form>
+				</div>
+			  </div>
+			</div>
+			{% include "parts/suggestions.html" %}
+		  </div>
+		</div>
+	  </div>
+	</div>
+
+{% endblock %}

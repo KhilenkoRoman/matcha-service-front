@@ -1,0 +1,207 @@
+{% extends "base.html" %}
+{% block title %}{{ data.user.first_name }} {{ data.user.last_name }} about - Matcha 40k{% endblock %}
+{% block scripts %}
+	<script src="{{ url_for('static', filename='js/users.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/gmap.js') }}"></script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAqLNucodvPuxX_30MWoh6g1YT6hWnvzS4&callback=init_about_Map"
+			type="text/javascript"></script>
+{% endblock %}
+{% block main %}
+	<div class="container rx_chat_content">
+
+	  <!-- Timeline
+	  ================================================= -->
+	  <div class="timeline">
+		{% include('parts/header_bottom.html') %}
+		<div id="page-contents">
+		  <div class="row">
+			<div class="col-md-3"></div>
+			{% if session.get("id_user_logged") %}
+				<div class="col-md-7">
+			{% else %}
+				<div class="col-md-9">
+			{% endif %}
+
+				<!-- About
+				================================================= -->
+				<div class="about-profile">
+					{% if data.user.id_user == session.get('id_user_logged') %}
+						<a href="{{ url_for('edit_profile') }}" class="btn btn-primary pull-right">Edit</a>
+					{% endif %}
+					<div class="about-content-block">
+						<h4 class="grey"><i class="ion-ios-information-outline icon-in-title"></i>Personal Information</h4>
+						<div class="row">
+							<div class="col-md-3">Gender:</div>
+							<div class="col-md-9">{% if data.user.gender == 1 %}Male{% else %}Female{% endif %}</div>
+						</div>
+						<div class="line-divider"></div>
+						<div class="row">
+							<div class="col-md-3">Interested In:</div>
+							<div class="col-md-9">{% if data.user.sex_pref == 0 %}Men and Women{% elif data.user.sex_pref == 1 %}Women{% else %}Men{% endif %}</div>
+						</div>
+						<div class="line-divider"></div>
+						{% if data.about.biography and not data.about.biography == ""  %}
+							<div class="row">
+								<div class="col-md-3">About Me:</div>
+								<div class="col-md-9">{{ data.about.biography }}</div>
+							</div>
+							<div class="line-divider"></div>
+						{% endif %}
+						{% if data.about.phone and not data.about.phone == ""  %}
+							<div class="row">
+								<div class="col-md-3">Phone:</div>
+								<div class="col-md-9">{{ data.about.phone }}</div>
+							</div>
+							<div class="line-divider"></div>
+						{% endif %}
+						{% if data.about.location and not data.about.location == " "  %}
+							<div class="row">
+								<div class="col-md-3">Location:</div>
+								<div class="col-md-9">{{ data.about.location }}</div>
+							</div>
+							<div class="line-divider"></div>
+						{% endif %}
+						{% if data.about.status and not data.about.status == ""  %}
+							<div class="row">
+								<div class="col-md-3">Status:</div>
+								<div class="col-md-9">{{ data.about.status }}</div>
+							</div>
+							<div class="line-divider"></div>
+						{% endif %}
+						{% if data.about.political and not data.about.political == ""  %}
+							<div class="row">
+								<div class="col-md-3">Political:</div>
+								<div class="col-md-9">{{ data.about.political }}</div>
+							</div>
+							<div class="line-divider"></div>
+						{% endif %}
+						{% if data.about.hobbies and not data.about.hobbies == ""  %}
+							<div class="row">
+								<div class="col-md-3">Hobbies:</div>
+								<div class="col-md-9">{{ data.about.hobbies }}</div>
+							</div>
+							<div class="line-divider"></div>
+						{% endif %}
+						{% if data.about.tv_shows and not data.about.tv_shows == ""  %}
+							<div class="row">
+								<div class="col-md-3">TV Shows:</div>
+								<div class="col-md-9">{{ data.about.tv_shows }}</div>
+							</div>
+							<div class="line-divider"></div>
+						{% endif %}
+						{% if data.about.movies and not data.about.movies == ""  %}
+							<div class="row">
+								<div class="col-md-3">Movies:</div>
+								<div class="col-md-9">{{ data.about.movies }}</div>
+							</div>
+							<div class="line-divider"></div>
+						{% endif %}
+						{% if data.about.games and not data.about.games == ""  %}
+							<div class="row">
+								<div class="col-md-3">Games:</div>
+								<div class="col-md-9">{{ data.about.games }}</div>
+							</div>
+							<div class="line-divider"></div>
+						{% endif %}
+						{% if data.about.music and not data.about.music == ""  %}
+							<div class="row">
+								<div class="col-md-3">Music:</div>
+								<div class="col-md-9">{{ data.about.music }}</div>
+							</div>
+							<div class="line-divider"></div>
+						{% endif %}
+						{% if data.about.books and not data.about.books == ""  %}
+							<div class="row">
+								<div class="col-md-3">Books:</div>
+								<div class="col-md-9">{{ data.about.books }}</div>
+							</div>
+							<div class="line-divider"></div>
+						{% endif %}
+						{% if data.about.writers and not data.about.writers == ""  %}
+							<div class="row">
+								<div class="col-md-3">Writers:</div>
+								<div class="col-md-9">{{ data.about.writers }}</div>
+							</div>
+							<div class="line-divider"></div>
+						{% endif %}
+						{% if data.about.others and not data.about.others == ""  %}
+							<div class="row">
+								<div class="col-md-3">Other:</div>
+								<div class="col-md-9">{{ data.about.others }}</div>
+							</div>
+						{% endif %}
+					</div>
+					{% if (data.about.fb and not data.about.fb == "") or (data.about.tw and not data.about.tw == "") or (data.about.inst and not data.about.inst == "") or (data.about.site and not data.about.site == "") %}
+						<div class="about-content-block">
+							<h4 class="grey"><i class="ion-ios-briefcase-outline icon-in-title"></i>Social media</h4>
+							{% if data.about.fb and not data.about.fb == "" %}
+								<div class="organization">
+									<img src="https://clipart.info/images/ccovers/1509135364flat-facebook-logo-png-icon-circle.png" alt="" class="pull-left img-org" />
+									<div class="work-info">
+										<a href="{{ data.about.fb }}" target="_blank" class="social-links"><h5>Facebook</h5></a>
+									</div>
+								</div>
+							{% endif %}
+							{% if data.about.tw and not data.about.tw == "" %}
+								<div class="organization">
+									<img src="http://backgroundcheckall.com/wp-content/uploads/2017/12/twitter-round-logo-png-transparent-background-7.png" alt="" class="pull-left img-org" />
+									<div class="work-info">
+										<a href="{{ data.about.tw }}" target="_blank" class="social-links"><h5>Twitter</h5></a>
+									</div>
+								</div>
+							{% endif %}
+							{% if data.about.inst and not data.about.inst == "" %}
+								<div class="organization">
+									<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Instagram_logo_2016.svg/1000px-Instagram_logo_2016.svg.png" alt="" class="pull-left img-org" />
+									<div class="work-info">
+										<a href="{{ data.about.inst }}" target="_blank" class="social-links"><h5>Instagram</h5></a>
+									</div>
+								</div>
+							{% endif %}
+							{% if data.about.site and not data.about.site == "" %}
+								<div class="organization">
+									<img src="http://www.freepngimg.com/download/world_wide_web/24850-9-world-wide-web-clipart.png" alt="" class="pull-left img-org" />
+									<div class="work-info">
+										<a href="{{ data.about.site }}" target="_blank" class="social-links"><h5>Site</h5></a>
+									</div>
+								</div>
+							{% endif %}
+						</div>
+					{% endif %}
+					<div class="about-content-block">
+						<h4 class="grey"><i class="ion-ios-location-outline icon-in-title"></i>Location</h4>
+						<div class="google-maps">
+                            <div id="map_about" class="map edit-map"></div>
+                        </div>
+					</div>
+					<div class="about-content-block">
+						<h4 class="grey"><i class="ion-ios-heart-outline icon-in-title"></i>Interests</h4>
+
+                        <div class="edit-block">
+				  <ul class="list-inline interests rx_cursor_default" id="tags_edit_list">
+
+                    {% if data.tags %}
+                      {% for tag in data.tags %}
+                        <li>{% if tag.tag_sign%}<i class="{{tag.tag_sign}}"></i>{% endif %} {{tag.tag}}</li>
+                      {% endfor %}
+                    {% endif %}
+				  </ul>
+                        </div>
+
+					</div>
+				</div>
+			</div>
+			{% if session.get("id_user_logged") %}
+				{% include "parts/suggestions.html" %}
+			{% endif %}
+		  </div>
+		</div>
+	  </div>
+	</div>
+    </div>
+
+<div class="none" id="about_latitude">{{data.get('location')[0].latitude}}</div>
+<div class="none" id="about_longitude">{{data.get('location')[0].longitude}}</div>
+
+{% endblock %}
+latitude

@@ -1,0 +1,130 @@
+{% extends "base.html" %}
+{% block title %}Search{% endblock %}
+{% block main %}
+	<div id="page-contents" class="rx_search_content">
+		<div class="container">
+			<div class="row">
+
+			<div class="col-md-3 static">
+	<div class="profile-card">
+		<img src="{{ session.get('user_data').avatar }}" alt="user" class="profile-photo" />
+		<h5><a href="{{ url_for('profile', id_user=session.get('user_data').id_user) }}" class="text-white">{{ session.get('user_data').first_name }} {{ session.get('user_data').last_name }}</a></h5>
+		<p class="text-white"><i class="ion ion-android-person-add"></i> {{ data.all_friends.__len__() }} followers</p>
+	</div><!--profile card ends-->
+
+
+
+	<div id="filter-block">
+		<form>
+			<div class="row">
+				<strong class="filter_lable">Age</strong><br>
+				<div class="form-group col-xs-6">
+				<input id="age_from" class="form-control input-group-lg" type="text" name="age_from" title="Enter Age" placeholder="Age from">
+				</div>
+				<div class="form-group col-xs-6">
+				<input id="age_to" class="form-control input-group-lg" type="text" name="age_to" title="Enter Age" placeholder="Age to">
+				</div>
+			</div>
+
+			<div class="row">
+				<strong class="filter_lable">Fame rating</strong><br>
+				<div class="form-group col-xs-6">
+				<input id="fame_from" class="form-control input-group-lg" type="text" name="fame_from" title="Enter Fame" placeholder="Fame from">
+				</div>
+				<div class="form-group col-xs-6">
+				<input id="fame_to" class="form-control input-group-lg" type="text" name="fame_to" title="Enter Fame" placeholder="Fame to">
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="form-group col-xs-8">
+				<label for="gender_select">Gender</label>
+				<select class="form-control" id="gender_select">
+					<option value="0">Both</option>
+					<option value="1">Male</option>
+					<option value="2">Female</option>
+				</select>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="form-group col-xs-12">
+				<strong class="filter_lable">Country</strong><br>
+				<input id="country" class="form-control input-group-lg" type="text" name="country" title="Country" placeholder="Enter Country">
+				<strong class="filter_lable">City</strong><br>
+				<input id="city" class="form-control input-group-lg" type="text" name="city" title="City" placeholder="Enter City">
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="form-group col-xs-12">
+				<strong class="filter_lable">Tags</strong><br>
+				<input id="tag_1" class="form-control input-group-lg" type="text" name="tag_1" title="Tag" placeholder="Enter Tag 1">
+				<input id="tag_2" class="form-control input-group-lg" type="text" name="tag_1" title="Tag" placeholder="Enter Tag 2">
+				<input id="tag_3" class="form-control input-group-lg" type="text" name="tag_1" title="Tag" placeholder="Enter Tag 3">
+				</div>
+			</div>
+
+
+		<button id="apply_filter_btn" class="btn btn-primary">Apply filter</button>
+		</form>
+	</div><!--chat block ends-->
+</div>
+
+
+
+
+			<div class="col-md-9">
+
+			<!-- Friend List
+			================================================= -->
+			<div class="friend-list">
+				<div class="row">
+					<div class="form-group col-xs-4 sorter_tab"><i id="age_desc" class="fas fa-angle-down"></i>Age<i id="age_asc" class="fas fa-angle-up"></i></div>
+					<div class="form-group col-xs-4 sorter_tab"><i id="dist_desc" class="fas fa-angle-down"></i>Distance<i id="dist_asc" class="fas fa-angle-up"></i></div>
+					<div class="form-group col-xs-4 sorter_tab"><i id="rate_desc" class="fas fa-angle-down"></i>Rating<i id="rate_asc" class="fas fa-angle-up"></i></div>
+				</div>
+				<div class="row" id="search_result">
+				{% if data.users_query %}
+					{% for user in data.users_query %}
+							<div class="col-md-4 col-sm-4">
+								<div class="friend-card">
+									<img src="{{ user.cover }}" alt="profile-cover" class="img-responsive cover" />
+									<div class="no_pading card-info text-center">
+										<img src="{{ user.avatar }}" alt="user" class="profile-photo-lg" />
+										<div class="friend-info user_div_info">
+											<h5><a href="{{ url_for('profile', id_user=user.id_user) }}" class="profile-link">{{ user.first_name }} {{ user.last_name }}</a></h5>
+											<span class="user_span_info"><strong>Rating</strong>:  {{ user.rating }}  </span>
+											<span class="user_span_info"><strong>Age</strong>:  {{ user.age }}  </span>
+											<span class="user_span_info"><strong>Distance</strong>:  {{ user.distance }} km </span>
+										</div>
+									</div>
+								</div>
+							</div>
+
+					{% endfor %}
+				{% else %}
+						<div class="col-12">
+							<div class="friend-card">
+								<div class="card-info">
+									<div class="friend-info text-center">
+										<p>No people found</p>
+
+									</div>
+								</div>
+							</div>
+						</div>
+				{% endif %}
+				</div>
+			</div>
+		  </div>
+			</div>
+		</div>
+	</div>
+{% endblock %}
+
+{% block scripts %}
+
+<script src="{{ url_for('static', filename='js/search.js') }}"></script>
+
+{% endblock %}

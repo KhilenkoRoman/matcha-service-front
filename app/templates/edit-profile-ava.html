@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block title %}Edit avatar {{ data.user.first_name }} {{ data.user.last_name }} - Matcha 40k{% endblock %}
+{% block scripts %}
+	<script src="{{ url_for('static', filename='js/users.js') }}"></script>
+{% endblock %}
+{% block main %}
+
+	<div class="container rx_chat_content">
+
+	  <!-- Timeline
+	  ================================================= -->
+	  <div class="timeline">
+		{% include('parts/header_bottom.html') %}
+		<div id="page-contents">
+		  <div class="row">
+			<div class="col-md-3">
+				{% include "parts/edit_left_sidebar.html" %}
+			</div>
+			<div class="col-md-7">
+
+			  <!-- Basic Information
+			  ================================================= -->
+			  <div class="edit-profile-container">
+				<div class="block-title">
+				  <h4 class="grey"><i class="icon ion-android-checkmark-circle"></i>Edit avatar</h4>
+				  <div class="line"></div>
+				  <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate</p>
+				  <div class="line"></div>
+				</div>
+				<div class="edit-block">
+					<div class="text-red" id="error"></div>
+				  <form name="ava_upload" id="ava_upload" class="form-inline" enctype="multipart/form-data" action="/ajax_save_ava/" method="post">
+					<div class="row">
+					  <div class="form-group col-xs-12">
+						<label for="ava">My avatar</label>
+						<input type="file" accept="image/*" name="ava" id="ava" class="form-control input-group-lg">
+					  </div>
+					  <div class="text-center" style="margin-bottom: 20px;">
+						<img src="{{ data.user.avatar }}" class="img-circle" width="150">
+					  </div>
+					</div>
+					<button type="submit" class="btn btn-primary">Save Changes</button>
+				  </form>
+				</div>
+			  </div>
+			</div>
+			{% include "parts/suggestions.html" %}
+		  </div>
+		</div>
+	  </div>
+	</div>
+
+{% endblock %}

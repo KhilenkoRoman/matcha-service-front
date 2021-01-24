@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta http-equiv="content-type" content="text/html" />
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="description" content="This is social network html5 template available in themeforest......" />
+		<meta name="keywords" content="Social Network, Social Media, Make Friends, Newsfeed, Profile Page" />
+		<meta name="robots" content="index, follow" />
+		<title>Matcha 40k</title>
+
+	<!-- Stylesheets
+	================================================= -->
+		<link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}" />
+		<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+		<link rel="stylesheet" href="{{ url_for('static', filename='css/ionicons.min.css') }}" />
+		<link rel="stylesheet" href="{{ url_for('static', filename='css/font-awesome.min.css') }}" />
+		<link rel="stylesheet" href="{{ url_for('static', filename='css/my_style.css') }}" />
+
+	<!--Google Font-->
+	<link href="https://fonts.googleapis.com/css?family=Lato:300,400,400i,700,700i" rel="stylesheet">
+
+	<!--Favicon-->
+	<link rel="shortcut icon" type="image/png" href="{{ url_for('static', filename='favicon.ico') }}"/>
+	</head>
+	<body style="background-color: #5a5a5ad9">
+
+	<!-- Header
+	================================================= -->
+		<header id="header-inverse">
+	  <nav class="navbar navbar-default navbar-fixed-top menu">
+		<div class="container">
+
+		  <!-- Brand and toggle get grouped for better mobile display -->
+		  <div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+			  <span class="sr-only">Toggle navigation</span>
+			  <span class="icon-bar"></span>
+			  <span class="icon-bar"></span>
+			  <span class="icon-bar"></span>
+			</button>
+			  <a class="navbar-brand" href="/"><p>Matcha 40k</p></a>
+		  </div>
+
+		</div><!-- /.container -->
+	  </nav>
+	</header>
+	<!--Header End-->
+
+	<!-- Landing Page Contents
+	================================================= -->
+	<div id="lp-register">
+		<div class="container wrapper">
+		<div class="row">
+			<div class="col-sm-5">
+			<div class="intro-texts">
+				<h1 class="text-white">Make Cool Friends !!!</h1>
+				<p>It is the 41st Millennium. For more than a hundred centuries the Emperor of Mankind has sat immobile on the Golden Throne of Earth. He is the master of mankind by the will of the gods and master of a million worlds by the might of His inexhaustible armies !!!</p>
+			  <a href="http://warhammer40k.wikia.com/wiki/Warhammer_40k_Wiki"><button class="btn btn-primary">Learn More</button></a>
+			</div>
+		  </div>
+			<div class="col-sm-6 col-sm-offset-1">
+			<div class="reg-form-container">
+
+			  <!-- Register/Login Tabs-->
+			  <div class="reg-options">
+				<ul class="nav nav-tabs">
+				  <li><a href="#register" data-toggle="tab" id="register_tab_btn">Register</a></li>
+				  <li class="active"><a href="#login" data-toggle="tab" id="login_tab_btn">Login</a></li>
+				</ul><!--Tabs End-->
+			  </div>
+
+			  <!--Registration Form Contents-->
+			  <div class="tab-content">
+				<div class="tab-pane" id="register">
+				  <h3>Join Now !!!</h3>
+				  <p class="text-muted">Be cool and join Astra Militarum today. Meet millions</p>
+
+				  <!--Register Form-->
+				  <form name="registration_form" id='registration_form' class="form-inline">
+					<div class="row">
+					  <div class="form-group col-xs-6">
+						<label for="firstname" class="sr-only">First Name</label>
+						<input id="firstname" class="form-control input-group-lg" type="text" name="firstname" title="Enter first name" placeholder="First name"/>
+					  </div>
+					  <div class="form-group col-xs-6">
+						<label for="lastname" class="sr-only">Last Name</label>
+						<input id="lastname" class="form-control input-group-lg" type="text" name="lastname" title="Enter last name" placeholder="Last name"/>
+					  </div>
+					</div>
+
+					  <div class="row">
+					  <div class="form-group col-xs-12">
+						<label for="r_login" class="sr-only">Login</label>
+						<input id="r_login" class="form-control input-group-lg" type="text" name="login" title="Enter Login" placeholder="Your Login"/>
+					  </div>
+					</div>
+
+					<div class="row">
+					  <div class="form-group col-xs-12">
+						<label for="email" class="sr-only">Email</label>
+						<input id="email" class="form-control input-group-lg" type="email" name="Email" title="Enter Email" placeholder="Your Email"/>
+					  </div>
+					</div>
+					<div class="row">
+					  <div class="form-group col-xs-12">
+						<label for="password" class="sr-only">Password</label>
+						<input id="password" class="form-control input-group-lg" type="password" name="password" title="Enter password" placeholder="Password"/>
+					  </div>
+					</div>
+					<div class="row">
+					  <p class="birth"><strong>Date of Birth</strong></p>
+					  <div class="form-group col-sm-3 col-xs-6">
+						<label for="month" class="sr-only"></label>
+						<select class="form-control" id="day">
+						  <option value="Day" disabled selected>Day</option>
+						  <option>01</option>
+						  <option>02</option>
+						  <option>03</option>
+						  <option>04</option>
+						  <option>05</option>
+						  <option>06</option>
+						  <option>07</option>
+						  <option>08</option>
+						  <option>09</option>
+						  <option>10</option>
+						  <option>11</option>
+						  <option>12</option>
+						  <option>13</option>
+						  <option>14</option>
+						  <option>15</option>
+						  <option>16</option>
+						  <option>17</option>
+						  <option>18</option>
+						  <option>19</option>
+						  <option>20</option>
+						  <option>21</option>
+						  <option>22</option>
+						  <option>23</option>
+						  <option>24</option>
+						  <option>25</option>
+						  <option>26</option>
+						  <option>27</option>
+						  <option>28</option>
+						  <option>29</option>
+						  <option>30</option>
+						  <option>31</option>
+						</select>
+					  </div>
+					  <div class="form-group col-sm-3 col-xs-6">
+						<label for="month" class="sr-only"></label>
+						<select class="form-control" id="month">
+						  <option value="month" disabled selected>Month</option>
+						  <option>Jan</option>
+						  <option>Feb</option>
+						  <option>Mar</option>
+						  <option>Apr</option>
+						  <option>May</option>
+						  <option>Jun</option>
+						  <option>Jul</option>
+						  <option>Aug</option>
+						  <option>Sep</option>
+						  <option>Oct</option>
+						  <option>Nov</option>
+						  <option>Dec</option>
+						</select>
+					  </div>
+					  <div class="form-group col-sm-6 col-xs-12">
+						<label for="year" class="sr-only"></label>
+						<select class="form-control" id="year">
+						  <option value="year" disabled selected>Year</option>
+						  <option>1973</option>
+						  <option>1974</option>
+						  <option>1975</option>
+						  <option>1976</option>
+						  <option>1977</option>
+						  <option>1978</option>
+						  <option>1979</option>
+						  <option>1980</option>
+						  <option>1981</option>
+						  <option>1982</option>
+						  <option>1983</option>
+						  <option>1984</option>
+						  <option>1985</option>
+						  <option>1986</option>
+						  <option>1987</option>
+						  <option>1988</option>
+						  <option>1989</option>
+						  <option>1990</option>
+						  <option>1991</option>
+						  <option>1992</option>
+						  <option>1993</option>
+						  <option>1994</option>
+						  <option>1995</option>
+						  <option>1996</option>
+						  <option>1997</option>
+						  <option>1998</option>
+						  <option>1999</option>
+						  <option>2000</option>
+						  <option>2001</option>
+						  <option>2002</option>
+						  <option>2004</option>
+						  <option>2005</option>
+						  <option>2006</option>
+						  <option>2007</option>
+						  <option>2008</option>
+						  <option>2009</option>
+						  <option>2010</option>
+						  <option>2011</option>
+						  <option>2012</option>
+						</select>
+					  </div>
+					</div>
+					<div class="form-group gender">
+						<label class="radio-inline">
+							<input type="radio" name="optradio" id="male" checked>Male
+						</label>
+						<label class="radio-inline">
+							<input type="radio" name="optradio" id="female">Female
+						</label>
+					</div>
+				  </form><!--Register Now Form Ends-->
+				  <button class="btn btn-primary" onclick="register('{{ url_for('ajax_registration') }}')" style="outline:none;">Register Now</button>
+				</div><!--Registration Form Contents Ends-->
+
+				<!--Login-->
+				<div class="tab-pane active" id="login">
+				  <h3>Login</h3>
+				  <p class="text-muted">Log into your account</p>
+
+				  <!--Login Form-->
+				  <form name="Login_form" id='Login_form'>
+					 <div class="row">
+					  <div class="form-group col-xs-12">
+						<label for="my-email" class="sr-only">Email</label>
+						<input id="my-email" class="form-control input-group-lg" type="text" name="Email" title="Enter Email" placeholder="Your Email or Login"/>
+					  </div>
+					</div>
+					<div class="row">
+					  <div class="form-group col-xs-12">
+						<label for="my-password" class="sr-only">Password</label>
+						<input id="my-password" class="form-control input-group-lg" type="password" name="password" title="Enter password" placeholder="Password"/>
+					  </div>
+					</div>
+				  </form><!--Login Form Ends-->
+				  <p><a href="#" id="forg_pwd_btn">Forgot Password?</a></p>
+				  <button class="btn btn-primary" onclick="login('{{ url_for('ajax_login') }}')" style="outline:none;">Login Now</button>
+				</div>
+
+				  <!--Forgot pwd-->
+				<div class="tab-pane" id="forgot_pwd">
+				  <h3>Password recovery</h3>
+				  <p class="text-muted">Send email to recover passeord</p>
+
+				  <!--Forgot pwd Form-->
+				  <form name="Login_form" id='forget_pwd_form'>
+					 <div class="row">
+					  <div class="form-group col-xs-12">
+						<label for="forg_my_email" class="sr-only">Email</label>
+						<input id="forg_my_email" class="form-control input-group-lg" type="text" name="Email" title="Enter Email" placeholder="Your Email"/>
+					  </div>
+					</div>
+
+				  </form><!--Forgot pwd Form Ends-->
+				  <p><a id="rem_pwd_btn" href="#">Remembered Password?</a></p>
+				  <button class="btn btn-primary" onclick="recover('{{ url_for('ajax_recover') }}')" style="outline:none;">Send</button>
+				</div>
+			  </div>
+			</div>
+		  </div>
+		</div>
+		<div class="row">
+		  <div class="col-sm-6 col-sm-offset-6">
+
+		  </div>
+		</div>
+	  </div>
+	</div>
+
+	<!--preloader-->
+	<div id="spinner-wrapper">
+	  <div class="spinner"></div>
+	</div>
+
+	<!-- Scripts
+	================================================= -->
+	<script src="{{ url_for('static', filename='js/jquery-3.1.1.min.js') }}"></script>
+	<script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+	<script src="{{ url_for('static', filename='js/jquery.appear.min.js') }}"></script>
+	<script src="{{ url_for('static', filename='js/jquery.incremental-counter.js') }}"></script>
+	<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+	<script src="{{ url_for('static', filename='js/auth.js') }}"></script>
+	</body>
+</html>

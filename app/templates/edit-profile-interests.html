@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% block title %}Edit Profile {{ data.user.first_name }} {{ data.user.last_name }} | My Interests - Matcha 40k{% endblock %}
+{% block scripts %}
+	<script src="{{ url_for('static', filename='js/users.js') }}"></script>
+{% endblock %}
+{% block main %}
+	<div class="container">
+
+	  <!-- Timeline
+	  ================================================= -->
+	  <div class="timeline">
+			{% include('parts/header_bottom.html') %}
+
+		<div id="page-contents" class="rx_edit_interests_content">
+		  <div class="row">
+			<div class="col-md-3">
+				{% include "parts/edit_left_sidebar.html" %}
+			</div>
+			<div class="col-md-7">
+
+			  <!-- Edit Interests
+			  ================================================= -->
+			  <div class="edit-profile-container">
+				<div class="block-title">
+				  <h4 class="grey"><i class="icon ion-ios-heart-outline"></i>My Interests</h4>
+				  <div class="line"></div>
+				  <p>Your commissar is interested in your interests, put some here.</p>
+				  <div class="line"></div>
+				</div>
+				<div class="edit-block">
+				  <ul class="list-inline interests rx_cursor_default" id="tags_edit_list">
+
+					{% if data.tags %}
+					  {% for tag in data.tags %}
+						<li onclick="delete_tag(this)"><a>{% if tag.tag_sign%}<i class="{{tag.tag_sign}}"></i>{% endif %} {{tag.tag}}</a></li>
+					  {% endfor %}
+					{% endif %}
+				  </ul>
+				  <div class="line"></div>
+				  <div class="row">
+					  <form id="add_tag_form">
+					<p class="custom-label"><strong>Add interests</strong></p>
+					<div class="form-group col-sm-8">
+					  <input id="add-interest" class="form-control input-group-lg" type="text" name="interest" title="Choose Interest" placeholder="Interests. For example, photography"/>
+					</div>
+					<div class="form-group col-sm-4">
+					  <button class="btn btn-primary">Add</button>
+					</div>
+					  </form>
+				  </div>
+				</div>
+			  </div>
+			</div>
+			{% include "parts/suggestions.html" %}
+		  </div>
+		</div>
+	  </div>
+	</div>
+{% endblock %}

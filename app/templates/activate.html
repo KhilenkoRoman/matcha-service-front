@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}Activation{% endblock %}
+	<!--Header End-->
+{% block main %}
+	<div class="google-maps">
+	  <div id="UNIT_Map" class="map contact-map"></div>
+	</div>
+	<div id="page-contents" class="rx_content">
+		<div class="container">
+			<div class="row">
+				<div id="rx_activation_response">
+					{% if context.success == 'true' %}
+					<p>Activated</p>
+					{% else %}
+					<p>Error</p>
+					{% endif %}
+					<a href="{{ url_for('index') }}">Main page</a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+{% endblock %}
+
+{% block scripts %}
+
+<script src="{{ url_for('static', filename='js/gmap.js') }}"></script>
+	<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAqLNucodvPuxX_30MWoh6g1YT6hWnvzS4&callback=init_UNIT_Map"
+			type="text/javascript"></script>
+{% endblock %}

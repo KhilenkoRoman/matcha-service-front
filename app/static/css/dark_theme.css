@@ -1,0 +1,53 @@
+body,
+#spinner-wrapper {
+	background: #23232d;
+}
+
+.line-divider {
+	border-color: #3b3b4b;
+}
+
+.post-content,
+.chat-room .chat-body ul.chat-message li.right .chat-item,
+.chat-room .send-message {
+	background: #2c2c36;
+	border-color: #26262f;
+}
+
+.form-control,
+.chat-room .chat-body ul.chat-message li.left .chat-item {
+	background: #3b3b4b;
+}
+
+.create-post .form-group .form-control,
+.post-content .post-container .post-detail .post-comment .form-control {
+	border-color: #26262f;
+}
+
+::selection {
+	background: rgba(255, 255, 255, .15);
+}
+
+.chat-room .chat-body ul.chat-message li .chat-item .chat-item-header h5 {
+	color: #dfdfdf;
+}
+
+.chat-room .chat-body ul.chat-message li .chat-item {
+	color: #a7a7a7;
+}
+
+/* Track */
+::-webkit-scrollbar,
+::-webkit-scrollbar-track {
+	background: rgba(255, 255, 255, .15);
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+	background: #2c2c36;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+	background: #3b3b4b;
+}

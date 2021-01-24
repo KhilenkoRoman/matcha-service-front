@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block title %}Recovery{% endblock %}
+<!--Header End-->
+{% block main %}
+	<div class="google-maps">
+		<div id="UNIT_Map" class="map contact-map"></div>
+	</div>
+	<div id="page-contents" class="rx_content">
+		<div class="container">
+			<div class="row">
+				<div id="rx_activation_response">
+					{% if context.success == "true" %}
+						<form id="recover_form">
+    					<div><input id="rec_pwd_inp" type="password" name="password" placeholder="New password" minlength="6" maxlength="100" class="form-control input-group-lg"></div>
+						<button class="btn btn-primary" type="submit" style="outline:none;" id="new_pwd_btm" onclick="new_pwd('{{ url_for('ajax_new_pwd') }}', '{{context.token}}', '{{context.email}}')">Submit</button>
+						</form>
+					{% else %}
+						<p>wrong token or email</p>
+					{% endif %}
+					<a href="{{ url_for('index') }}">Main page</a>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}
+
+{% block scripts %}
+	<script src="{{ url_for('static', filename='js/auth.js') }}"></script>
+	<script src="{{ url_for('static', filename='js/gmap.js') }}"></script>
+	<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAqLNucodvPuxX_30MWoh6g1YT6hWnvzS4&callback=init_UNIT_Map"
+			type="text/javascript"></script>
+{% endblock %}

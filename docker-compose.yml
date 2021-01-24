@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  web:
+    build: .
+    command: gunicorn --bind 0.0.0.0:5000 wsgi:app
+    expose:
+      - 5000
+    environment:
+      - DATABASE_URL=postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres_db:5432/${POSTGRES_DB}
+    volumes:
+      - ./app/static:/app/static
+
+  nginx:
+    build: ./nginx
+    ports:
+      - 80:80
+    volumes:
+      - ./data/static_collected:/static
+    depends_on:
+      - web

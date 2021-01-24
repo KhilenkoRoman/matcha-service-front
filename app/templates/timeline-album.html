@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% block title %}{{ data.user.first_name }} {{ data.user.last_name }} about - Matcha 40k{% endblock %}
+{% block scripts %}
+	<script src="{{ url_for('static', filename='js/users.js') }}"></script>
+{% endblock %}
+{% block main %}
+	<div class="container rx_chat_content">
+
+	  <!-- Timeline
+	  ================================================= -->
+	  <div class="timeline">
+		{% include('parts/header_bottom.html') %}
+		<div id="page-contents">
+		  <div class="row">
+			<div class="col-md-3"></div>
+			{% if session.get("id_user_logged") %}
+				<div class="col-md-7">
+			{% else %}
+				<div class="col-md-9">
+			{% endif %}
+
+				{% if data.user.id_user == session.get('id_user_logged') %}
+					<div>
+						<a href="{{ url_for('create_album') }}" class="btn btn-primary pull-right">Add images</a>
+						<div class="clearfix"></div>
+						<p></p>
+					</div>
+				{% endif %}
+			  <!-- Photo Album
+			  ================================================= -->
+			  <ul class="album-photos">
+				{% for image in data.album %}
+					<li>
+						<div class="img-wrapper" data-toggle="modal" data-target=".photo-{{ image.id_img }}">
+							<img src="{{ image.img_src }}" alt="photo" />
+						</div>
+						<div class="modal fade photo-{{ image.id_img }}" tabindex="-1" role="dialog" aria-hidden="true">
+							<div class="modal-dialog modal-lg">
+								<div class="modal-content">
+									<img src="{{ image.img_src }}" alt="photo" />
+								</div>
+							</div>
+						</div>
+					</li>
+				{% else %}
+					<div class="post-content">
+						<div class="post-container">
+							<div class="post-detail">
+								<div class="post-text">
+									<p>No images.</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				{% endfor %}
+			  </ul>
+			</div>
+			{% if session.get("id_user_logged") %}
+				{% include "parts/suggestions.html" %}
+			{% endif %}
+		  </div>
+		</div>
+	  </div>
+	</div>
+
+{% endblock %}

@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% block title %}Friends{% endblock %}
+{% block main %}
+	<div id="page-contents" class="rx_chat_content">
+		<div class="container">
+			<div class="row">
+			{% include "parts/left_sidebar.html" %}
+			<div class="col-md-7">
+
+			<!-- Friend List
+			================================================= -->
+			<div class="friend-list">
+				<div class="row">
+					{% for friend in data.friends %}
+						{% if friend.id_requester == data.user.id_user %}
+							{% set friend_user = data.get_by_id(friend.id_user_requested) %}
+							<div class="col-md-6 col-sm-6">
+								<div class="friend-card">
+									<img src="{{ friend_user.cover }}" alt="profile-cover" class="img-responsive cover" />
+									<div class="card-info text-center">
+										<img src="{{ friend_user.avatar }}" alt="user" class="profile-photo-lg" />
+										<div class="friend-info">
+											<h5><a href="{{ url_for('profile', id_user=friend_user.id_user) }}" class="profile-link">{{ friend_user.first_name }} {{ friend_user.last_name }}</a></h5>
+											<p>Rating: {{ friend_user.rating }}</p>
+										</div>
+									</div>
+								</div>
+							</div>
+						{% elif friend.id_user_requested == data.user.id_user %}
+							{% set friend_user_req = data.get_by_id(friend.id_requester) %}
+							<div class="col-md-6 col-sm-6">
+								<div class="friend-card">
+									<img src="{{ friend_user_req.cover }}" alt="profile-cover" class="img-responsive cover" />
+									<div class="card-info text-center">
+										<img src="{{ friend_user_req.avatar }}" alt="user" class="profile-photo-lg" />
+										<div class="friend-info">
+											<h5><a href="{{ url_for('profile', id_user=friend_user_req.id_user) }}" class="profile-link">{{ friend_user_req.first_name }} {{ friend_user_req.last_name }}</a></h5>
+											<p>Rating: {{ friend_user_req.rating }}</p>
+										</div>
+									</div>
+								</div>
+							</div>
+						{% endif %}
+					{% else %}
+						<div class="col-12">
+							<div class="friend-card">
+								<div class="card-info">
+									<div class="friend-info text-center">
+										<p>No friends request</p>
+										<p>
+											<a class="btn bg-success" href="{{ url_for('user_friends', id_user=session.get('id_user_logged')) }}">All friends</a>
+										</p>
+									</div>
+								</div>
+							</div>
+						</div>
+					{% endfor %}
+				</div>
+			</div>
+		  </div>
+			{% include "parts/suggestions.html" %}
+			</div>
+		</div>
+	</div>
+{% endblock %}
+
+{% block scripts %}
+
+<script src="{{ url_for('static', filename='js/make_chat.js') }}"></script>
+
+{% endblock %}

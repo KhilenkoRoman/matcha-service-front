@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% block title %}People neraby{% endblock %}
+	<!--Header End-->
+{% block main %}
+
+	<div id="page-contents" class="rx_chat_content">
+		<div class="container">
+			<div class="row">
+			{% include "parts/left_sidebar.html" %}
+
+				<div class="col-md-9">
+					<!-- Nearby People List
+			================================================= -->
+			<div class="people-nearby">
+			  <div class="google-maps">
+				<div id="map_people_nearby" class="map"></div>
+			  </div>
+				{% for user in data.not_friends %}
+			  <div class="nearby-user">
+				<div class="row">
+				  <div class="col-md-2 col-sm-2">
+					<img src="{{ user.avatar }}" alt="user" class="profile-photo-lg" />
+				  </div>
+				  <div class="col-md-7 col-sm-7">
+					<h5><a href="{{ url_for('profile', id_user=user.id_user) }}" class="profile-link">{{user.first_name}} {{user.last_name}}</a></h5>
+					<!--<p>Software Engineer</p>-->
+					<p class="text-muted">{{ user.distance }}km away</p>
+				  </div>
+				</div>
+				   <div class="none longitude" >{{user.longitude}}</div>
+				   <div class="none latitude" >{{user.latitude}}</div>
+			  </div>
+			  {% endfor %}
+			</div>
+		  </div>
+		</div>
+		</div>
+	</div>
+
+
+
+	<div class="none" id="avatar">{{session.get('user_data').avatar}}</div>
+	<div class="none" id="self_latitude">{{session.get('location')[0].latitude}}</div>
+	<div class="none" id="self_longitude">{{session.get('location')[0].longitude}}</div>
+{% endblock %}
+
+{% block scripts %}
+
+<script src="{{ url_for('static', filename='js/make_chat.js') }}"></script>
+<script src="{{ url_for('static', filename='js/gmap.js') }}"></script>
+	<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAqLNucodvPuxX_30MWoh6g1YT6hWnvzS4&callback=map_people_nearby"
+			type="text/javascript"></script>
+
+{% endblock %}

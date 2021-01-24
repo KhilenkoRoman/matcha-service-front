@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% block title %}Add images {{ data.user.first_name }} {{ data.user.last_name }} - Matcha 40k{% endblock %}
+{% block scripts %}
+	<script src="{{ url_for('static', filename='js/users.js') }}"></script>
+	<script>
+		let fileUpload = $("#images");
+
+		fileUpload.change(function () {
+			if (parseInt(fileUpload.get(0).files.length) > 4){
+				alert("You are only allowed to upload a maximum of 4 files");
+				location.reload();
+			}
+		});
+	  </script>
+{% endblock %}
+{% block main %}
+
+	<div class="container rx_chat_content">
+
+	  <!-- Timeline
+	  ================================================= -->
+	  <div class="timeline">
+		{% include('parts/header_bottom.html') %}
+		<div id="page-contents">
+		  <div class="row">
+			<div class="col-md-3"></div>
+			<div class="col-md-7">
+
+			  <!-- Basic Information
+			  ================================================= -->
+			  <div class="edit-profile-container">
+				<div class="block-title">
+				  <h4 class="grey"><i class="icon ion-android-checkmark-circle"></i>Add images</h4>
+				  <div class="line"></div>
+				  <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate</p>
+				  <div class="line"></div>
+				</div>
+				<div class="edit-block">
+					<div class="text-red" id="error"></div>
+				  <form name="images_upload" id="images_upload" class="form-inline" enctype="multipart/form-data" action="/ajax_save_album/" method="post">
+					<div class="row">
+					  <div class="form-group col-xs-12">
+						<label for="images">Images</label>
+						<input type="file" accept="image/*" multiple name="images[]" id="images" class="form-control input-group-lg">
+					  </div>
+					</div>
+					<button type="submit" class="btn btn-primary">Save Changes</button>
+				  </form>
+				</div>
+			  </div>
+			</div>
+			{% include('parts/suggestions.html') %}
+		  </div>
+		</div>
+	  </div>
+	</div>
+
+{% endblock %}

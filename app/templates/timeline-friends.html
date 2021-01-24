@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{% block title %}{{ data.user.first_name }} {{ data.user.last_name }} friends - Matcha 40k{% endblock %}
+{% block scripts %}
+	<script src="{{ url_for('static', filename='js/users.js') }}"></script>
+{% endblock %}
+{% block main %}
+
+	<div class="container rx_chat_content">
+
+	  <!-- Timeline
+	  ================================================= -->
+	  <div class="timeline">
+		{% include('parts/header_bottom.html') %}
+		<div id="page-contents">
+		  <div class="row">
+			<div class="col-md-3"></div>
+			{% if session.get("id_user_logged") %}
+				<div class="col-md-7">
+			{% else %}
+				<div class="col-md-9">
+			{% endif %}
+
+			  <!-- Friend List
+			  ================================================= -->
+			  <div class="friend-list">
+				<div class="row">
+					{% for friend in data.friends %}
+						{% if friend.id_requester == data.user.id_user %}
+							{% set friend_user = data.get_by_id(friend.id_user_requested) %}
+							<div class="col-md-6 col-sm-6">
+								<div class="friend-card">
+									<img src="{{ friend_user.cover }}" alt="profile-cover" class="img-responsive cover" />
+									<div class="card-info text-center">
+										<img src="{{ friend_user.avatar }}" alt="user" class="profile-photo-lg" />
+										<div class="friend-info">
+{#											<a href="#" class="pull-right text-green">My Friend</a>#}
+											<h5><a href="{{ url_for('profile', id_user=friend_user.id_user) }}" class="profile-link">{{ friend_user.first_name }} {{ friend_user.last_name }}</a></h5>
+											<p>Rating: {{ friend_user.rating }}</p>
+										</div>
+									</div>
+								</div>
+							</div>
+						{% elif friend.id_user_requested == data.user.id_user %}
+							{% set friend_user_req = data.get_by_id(friend.id_requester) %}
+							<div class="col-md-6 col-sm-6">
+								<div class="friend-card">
+									<img src="{{ friend_user_req.cover }}" alt="profile-cover" class="img-responsive cover" />
+									<div class="card-info text-center">
+										<img src="{{ friend_user_req.avatar }}" alt="user" class="profile-photo-lg" />
+										<div class="friend-info">
+{#											<a href="#" class="pull-right text-green">My Friend</a>#}
+											<h5><a href="{{ url_for('profile', id_user=friend_user_req.id_user) }}" class="profile-link">{{ friend_user_req.first_name }} {{ friend_user_req.last_name }}</a></h5>
+											<p>Rating: {{ friend_user_req.rating }}</p>
+										</div>
+									</div>
+								</div>
+							</div>
+						{% endif %}
+					{% else %}
+						<div class="col-12">
+							<div class="friend-card">
+								<div class="card-info text-center">
+									<div class="friend-info">
+										<p>No friends</p>
+									</div>
+								</div>
+							</div>
+						</div>
+					{% endfor %}
+				</div>
+			  </div>
+			</div>
+			{% if session.get("id_user_logged") %}
+				{% include "parts/suggestions.html" %}
+			{% endif %}
+		  </div>
+		</div>
+	  </div>
+	</div>
+
+{% endblock %}
