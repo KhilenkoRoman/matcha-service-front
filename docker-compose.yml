@@ -1,11 +1,20 @@
 version: '3.8'
 
 services:
-  matcha-service-front:
+  front:
     build: .
     command: gunicorn --bind 0.0.0.0:5000 wsgi:app
     expose:
       - 5000
+
+  front_nginx:
+    build: ./nginx
+    ports:
+      - 5000:5000
+    volumes:
+      - ./app/static:/static
+    depends_on:
+      - front
 
 networks:
   default:
