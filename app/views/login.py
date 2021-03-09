@@ -1,6 +1,7 @@
-from app import app
+from app import app, settings
 import hashlib
 import html
+import json
 from flask import render_template, request, session, redirect, url_for
 import re
 from datetime import datetime
@@ -11,22 +12,25 @@ from app.models.friendship import all_friends
 from app.models.notifications import get_notifications_by_user_id
 from app.models.location import *
 from app.views.newsfeed import get_not_friends
+import requests
+
 
 @app.route('/')
 def index():
-	# if session.get('id_user_logged'):
-	# 	data = {
-	# 		'all_posts': all_user_post,
-	# 		'all_friends': all_friends(session.get('id_user_logged')),
-	# 		"get_user_by_id": get_user_by_id,
-	# 		"all_post_comments": all_post_comments,
-	# 		"liked": liked,
-	# 		"disliked": disliked,
-	# 		"len_post_likes": len_post_likes,
-	# 		"len_post_dislikes": len_post_dislikes,
-	# 		'users_online': get_users_online_list()
-	# 	}
-	# 	return render_template('newsfeed.html', data=data)
+	if session.get('token'):
+		data = {
+			'all_posts': 'all_user_post',
+			'all_friends': all_friends(session.get('id_user_logged')),
+			"get_user_by_id": get_user_by_id,
+			"all_post_comments": 'all_post_comments',
+			"liked": 'liked',
+			"disliked": 'disliked',
+			"len_post_likes": 'len_post_likes',
+			"len_post_dislikes": 'len_post_dislikes',
+			'users_online': 'get_users_online_list()'
+		}
+		return render_template('newsfeed.html', data=data)
+
 	return render_template('index-register.html')
 
 
@@ -50,7 +54,6 @@ def get_friendlist(id_user):
 @app.route('/ajax_registration', methods=['POST'])
 def ajax_registration():
 	r_email = html.escape(request.form['email'])
-	r_login = html.escape(request.form['login'])
 	pwd = request.form['pasword']
 	r_first = request.form['first_name']
 	r_last = request.form['last_name']
@@ -62,50 +65,45 @@ def ajax_registration():
 	else:
 		cover = str(num) + ".jpeg"
 
-	str_date = request.form['day'] + " " + request.form['month'] + " " + request.form['year']
+	str_date = request.form['year'] + request.form['month'] + request.form['day']
 	try:
-		r_birthday = datetime.strptime(str_date, '%d %b %Y')
+		r_birthday = datetime.strptime(str_date, '%Y%b%d')
 	except:
 		return "wrong_data"
-	check = check_user(r_login, r_email)
 
-	if check:
-		if check[0]["email"] == r_email:
-			return "email_exist"
-		elif check[0]["login"] == r_login:
-			return "login_exist"
 	if not r_email:
 		return "no_email"
-	if not r_login:
-		return "no_login"
 	if not pwd:
 		return "no_pwd"
 	if len(r_email) > 100:
 		return "long_mail"
-	if len(r_login) > 40:
-		return "long_login"
-	if not re.match("^[a-zA-Z0-9]+$", r_login):
-		return "wrong_login"
 	if len(pwd) > 100:
 		return "long_pwd"
 	if not re.match("^[_a-z0-9-]+(.[_a-z0-9-]+)*@[a-z0-9-]+(.[a-z0-9-]+)*(.[a-z]{2,4})$", r_email.lower()):
 		return "wrong_email"
 	if re.search("[a-zA-Z]+", pwd.lower()) is None or re.search("[0-9]+", pwd) is None:
 		return "week_pwd"
-	date_str = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-	pwd_hash = hashlib.sha512(pwd.encode('utf-8')).hexdigest()
-	token_hash = hashlib.md5((r_email + r_login + date_str).encode('utf-8')).hexdigest()
-	cover_img = "/static/uploads/covers/" + cover
-	req = user_to_db(r_login, r_email, pwd_hash, token_hash, r_first, r_last, r_gender, r_birthday, cover_img)
 
-	if req:
-		about = create_about(req)
-		if not about:
-			msg = Message('matcha registration', sender="rkhilenksmtp@gmail.com", recipients=[r_email])
-			msg.body = "To activate account goto " + request.url_root + "activate?email=" + r_email + "&token=" + token_hash
-			msg.html = "<p>To activate account goto <a href='" + request.url_root + "activate?email=" + r_email + "&token=" + token_hash + "'>this link</a></p>"
-			return "registered"
-	return "error"
+	r = requests.post(settings['GATEWAY_URL'] + 'api/v1/user/register/', json={
+		"email": r_email,
+		"password": pwd,
+		"first_name": r_first,
+		"last_name": r_last,
+		"user_info": {
+			"gender": int(r_gender) - 1,
+			"birth_date": r_birthday.strftime('%Y-%m-%d'),
+		},
+		})
+
+	if r.status_code == 400 and r.json().get('email') == ['user with this email already exists.']:
+		return "email_exist"
+
+	if r.status_code == 201:
+		session['token'] = r.json().pop('token')
+		session['user'] = r.json()
+		return "registered"
+	else:
+		return "error"
 
 
 @app.route('/activate')
@@ -143,23 +141,13 @@ def ajax_login():
 		return "long_login"
 	if len(pwd) > 100:
 		return "long_pwd"
-	res = check_user(l_login, l_login)
 
-	if len(res) == 1:
-		res = res[0]
-		if res['active'] != 1:
-			return "not_active"
-		pwd_hash = hashlib.sha512(pwd.encode('utf-8')).hexdigest()
-		if res['password'] == pwd_hash:
-			session['friendlist'] = get_friendlist(res['id_user'])
-			session['id_user_logged'] = res['id_user']
-			session['user_data'] = res
-			session['notifications'] = get_notifications_by_user_id(res['id_user'])
-			session['location'] = get_location_by_id(res['id_user'])
-			session['not_friends'] = get_not_friends(res['id_user'])
-			return "logged_in"
-		else:
-			return "wrong_pwd"
+	r = requests.post(settings['GATEWAY_URL'] + 'api/v1/user/token/', data={'email' : l_login, 'password': pwd})
+
+	if r.status_code == 200:
+		session['token'] = r.json().get('token')
+		session['user'] = r.json().get('user')
+		return "logged_in"
 	else:
 		return "no_user"
 

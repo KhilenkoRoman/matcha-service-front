@@ -37,7 +37,7 @@ def allowed_ex(mime):
 
 
 @app.route('/profile/')
-@app.route('/user/id<int:id_user>/')
+@app.route('/user/id<uuid:id_user>/')
 def profile(id_user=None):
 	if not session.get('user_data') and not id_user:
 		return redirect('/')

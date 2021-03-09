@@ -34,9 +34,6 @@ function register(view_url)
 	if (last_name.length < 3 || last_name.length > 20)
 	{$("#lastname").addClass("unvalid");
 		error = 1;}
-	if (login.length < 3 || login.length > 30)
-	{$("#r_login").addClass("unvalid");
-		error = 1;}
 	if (email.length < 3 || email.length > 30)
 	{$("#email").addClass("unvalid");
 		error = 1;}
@@ -80,10 +77,11 @@ function register(view_url)
 			$("#password").addClass("unvalid");}
 
 			if (response == "registered"){
-				$('#register').fadeOut(600, function(){ $(this).html("<p id='reg_tnx'>Thanks for registration<br>Look your email for confirmation</p>");});
+				$('#register').fadeOut(600, function(){ $(this).html("<p id='reg_tnx'>Thanks for registration");});
 				$('#register').fadeIn(600, function(){});
 				$('#login_tab_btn').removeAttr('href');
 				$('#register_tab_btn').removeAttr('href');
+				location.reload();
 			}
 
 			button.disabled = false;
