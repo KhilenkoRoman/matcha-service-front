@@ -1,0 +1,27 @@
+<!--Edit Profile Menu-->
+<ul class="edit-menu">
+	<li{%- if request.path == url_for('edit_profile') %} class="active"{% endif %}>
+		<i class="icon ion-ios-information-outline"></i>
+		<a href="{{ url_for('edit_profile') }}">Basic Information</a>
+	</li>
+	<li{%- if request.path == url_for('edit_profile_advanced') %} class="active"{% endif %}>
+		<i class="icon ion-ios-briefcase-outline"></i>
+		<a href="{{ url_for('edit_profile_advanced') }}">Advanced Information</a>
+	</li>
+	<li{%- if request.path == url_for('edit_profile_interests') %} class="active"{% endif %}>
+		<i class="icon ion-ios-heart-outline"></i>
+		<a href="{{ url_for('edit_profile_interests') }}">My Interests</a>
+	</li>
+	<li{%- if request.path == url_for('edit_profile_avatar') %} class="active"{% endif %}>
+		<i class="icon ion-ios-albums-outline"></i>
+		<a href="{{ url_for('edit_profile_avatar') }}">Avatar</a>
+	</li>
+	<li{%- if request.path == url_for('edit_profile_location') %} class="active"{% endif %}>
+		<i class="icon ion-map"></i>
+		<a href="{{ url_for('edit_profile_location') }}">Location</a>
+	</li>
+	<li{%- if request.path == url_for('edit_profile_password') %} class="active"{% endif %}>
+		<i class="icon ion-ios-locked-outline"></i>
+		<a href="{{ url_for('edit_profile_password') }}">Change Password</a>
+	</li>
+</ul>

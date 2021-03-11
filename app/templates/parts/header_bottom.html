@@ -1,0 +1,101 @@
+<div class="timeline-cover" style="background-image: url({{ data.user.cover }});">
+	<div class="hidden" id="auth_id">{{ session.get('id_user_logged') }}</div>
+	<div class="hidden" id="user_id">{{ data.user.id_user }}</div>
+	<!--Timeline Menu for Large Screens-->
+	<div class="timeline-nav-bar hidden-sm hidden-xs">
+		<div class="row">
+			<div class="col-md-3">
+				<div class="profile-info">
+					<img src="{{ data.user.avatar }}" alt="" class="img-responsive profile-photo" />
+					<h3>{{ data.user.first_name }} {{ data.user.last_name }}</h3>
+					<p class="text-muted">Rating: {{ data.user.rating }}</p>
+				</div>
+			</div>
+			<div class="col-md-9">
+				<ul class="list-inline profile-menu">
+					<li>
+						<a
+							href="{{ url_for('profile', id_user=data.user.id_user) }}"
+							{%- if request.path == url_for('profile', id_user=data.user.id_user) %} class="active"{% endif %}
+						>Timeline</a>
+					</li>
+					<li>
+						<a
+							href="{{ url_for('about', id_user=data.user.id_user) }}"
+							{%- if request.path == url_for('about', id_user=data.user.id_user) %} class="active"{% endif %}
+						>About</a>
+					</li>
+					<li>
+						<a
+							href="{{ url_for('album', id_user=data.user.id_user) }}"
+							{%- if request.path == url_for('album', id_user=data.user.id_user) %} class="active"{% endif %}
+						>Album</a>
+					</li>
+					<li>
+						<a
+							href="{{ url_for('user_friends', id_user=data.user.id_user) }}"
+							{%- if request.path == url_for('user_friends', id_user=data.user.id_user) %} class="active"{% endif %}
+						>Friends</a>
+					</li>
+				</ul>
+				<ul class="follow-me list-inline">
+					<li>{{ data.all_friends.__len__() }} followers</li>
+					<li id="friends_request">
+						<button class="btn-primary">Add Friend</button>
+					</li>
+					{% if session.get('id_user_logged') and not session.get('id_user_logged') == data.user.id_user %}
+						<a href="{{ url_for('report', id_user=data.user.id_user) }}" class="btn btn-warning">Report User</a>
+						<a href="{{ url_for('block', id_user=data.user.id_user) }}" class="btn btn-danger">Block User</a>
+					{% endif %}
+				</ul>
+			</div>
+		</div>
+	</div><!--Timeline Menu for Large Screens End-->
+	<!--Timeline Menu for Small Screens-->
+	<div class="navbar-mobile hidden-lg hidden-md">
+		<div class="profile-info">
+			<img src="{{ data.user.avatar }}" alt="" class="img-responsive profile-photo" />
+			<h4>{{ data.user.first_name }} {{ data.user.last_name }}</h4>
+			<p class="text-muted">Rating: {{ data.user.rating }}</p>
+		</div>
+		<div class="mobile-menu">
+			<ul class="list-inline">
+				<li>
+					<a
+						href="{{ url_for('profile', id_user=data.user.id_user) }}"
+						{%- if request.path == url_for('profile', id_user=data.user.id_user) %} class="active"{% endif %}
+					>Timeline</a>
+				</li>
+				<li>
+					<a
+						href="{{ url_for('about', id_user=data.user.id_user) }}"
+						{%- if request.path == url_for('about', id_user=data.user.id_user) %} class="active"{% endif %}
+					>About</a>
+				</li>
+				<li>
+					<a
+						href="{{ url_for('album', id_user=data.user.id_user) }}"
+						{%- if request.path == url_for('album', id_user=data.user.id_user) %} class="active"{% endif %}
+					>Album</a>
+				</li>
+				<li>
+					<a
+						href="{{ url_for('user_friends', id_user=data.user.id_user) }}"
+						{%- if request.path == url_for('user_friends', id_user=data.user.id_user) %} class="active"{% endif %}
+					>Friends</a>
+				</li>
+			</ul>
+			<ul class="follow-me list-inline">
+				<li>{{ data.all_friends.__len__() }} followers</li>
+				<li id="friends_request_sm">
+					<button class="btn-primary">Add Friend</button>
+				</li>
+				{% if session.get('id_user_logged') and not session.get('id_user_logged') == data.user.id_user %}
+					<a href="{{ url_for('report', id_user=data.user.id_user) }}" class="btn btn-warning">Report User</a>
+					<a href="{{ url_for('block', id_user=data.user.id_user) }}" class="btn btn-danger">Block User</a>
+				{% endif %}
+			</ul>
+		</div>
+	</div><!--Timeline Menu for Small Screens End-->
+
+</div>

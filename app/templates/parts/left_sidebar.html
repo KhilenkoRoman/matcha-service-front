@@ -1,0 +1,32 @@
+<!-- Newsfeed Common Side Bar Left
+================================================= -->
+<div class="col-md-3 static">
+	<div class="profile-card">
+<!--		<img src="{{ session.get('user_data').avatar }}" alt="user" class="profile-photo" />-->
+		<img src="{{ url_for('static', filename='uploads/avatars/default.png') }}" alt="user" class="profile-photo" />
+
+
+<!--		<h5><a href="{{ url_for('profile', id_user=session.get('user').id) }}" class="text-white">{{ session.get('user').first_name }} {{ session.get('user').last_name }}</a></h5>-->
+		<h5><a href="" class="text-white">{{ session.get('user').first_name }} {{ session.get('user').last_name }}</a></h5>
+	</div><!--profile card ends-->
+	<ul class="nav-news-feed">
+		<li><i class="icon ion-ios-paper"></i><div><a href="{{ url_for('index') }}">My Newsfeed</a></div></li>
+		<li><i class="icon ion-ios-people"></i><div><a href="{{ url_for('people_nearby') }}">People Nearby</a></div></li>
+		<li><i class="icon ion-ios-people-outline"></i><div><a href="{{ url_for('friends') }}">Friends request</a></div></li>
+		<li><i class="icon ion-images"></i><div><a href="{{ url_for('album') }}">Images</a></div></li>
+	</ul><!--news-feed links ends-->
+	<div id="chat-block">
+		<div class="title">Chat online</div>
+		<ul class="online-users list-inline">
+			{% if session.friendlist %}
+				{% for friend in session.friendlist %}
+					<li><a href="#" title="{{friend.first_name}} {{friend.last_name}}"><img src="{{friend.avatar}}" alt="user" class="img-responsive profile-photo" onclick="chat_start()"/>
+						{% if friend.id_user in data.users_online %}
+						<span class="online-dot"></span>
+						{% endif %}
+					<div class="none chat_login_to">{{friend.login}}</div></a></li>
+				{% endfor %}
+			{% endif %}
+		</ul>
+	</div><!--chat block ends-->
+</div>

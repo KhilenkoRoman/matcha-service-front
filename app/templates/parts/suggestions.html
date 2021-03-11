@@ -1,0 +1,26 @@
+<!-- Newsfeed Common Side Bar Right
+================================================= -->
+<div class="col-md-2 static">
+	<div class="suggestions" id="sticky-sidebar">
+		<h4 class="grey">Who to Follow</h4>
+		{# {% set i = 0 %}
+		{% for not_friend in session.get('not_friends') %}
+			{% if i < 10 %}
+				<div class="follow-user">
+					<img src="{{ not_friend.avatar }}" alt="" class="profile-photo-sm pull-left" />
+					<div>
+						<h5><a href="{{ url_for('profile', id_user=not_friend.id_user) }}">{{ not_friend.first_name }} {{ not_friend.last_name }}</a></h5>
+						<p class="text-green">{{ not_friend.distance }}km away</p>
+					</div>
+				</div>
+			{% endif %}
+			{% set i = i + 1 %}
+		{% else %}
+			<div class="follow-user">
+				<div>
+					<p class="text-green text-center">No users</p>
+				</div>
+				</div>
+		{% endfor %} #}
+	</div>
+</div>
