@@ -23,11 +23,12 @@ for setting in env:
 
 try:
     from .local_settings import settings_local
+    settings.update(settings_local)
     print('Successfully imported local settings, use it only for development')
 except ImportError as e:
     pass
 
-settings.update(settings_local)
+
 
 from app.views import newsfeed, login, chat, profiles, posts, friends, comments, likes, notifications, tags, geolocation, search
 from app.views.notifications import get_users_online_list

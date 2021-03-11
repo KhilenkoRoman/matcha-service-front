@@ -128,6 +128,7 @@ def activate():
 
 @app.route('/ajax_login', methods=['POST'])
 def ajax_login():
+	print('qweqwe')
 	if session.get('id_user_logged'):
 		return "already_logged"
 	l_login = html.escape(request.form['login'])
@@ -143,6 +144,8 @@ def ajax_login():
 		return "long_pwd"
 
 	r = requests.post(settings['GATEWAY_URL'] + 'api/v1/user/token/', data={'email' : l_login, 'password': pwd})
+
+	print(r.text)
 
 	if r.status_code == 200:
 		session['token'] = r.json().get('token')

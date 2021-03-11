@@ -6,6 +6,8 @@ services:
     command: gunicorn --bind 0.0.0.0:5000 wsgi:app
     expose:
       - 5000
+    environment:
+      - GATEWAY_URL= http://gateway:8000/
 
   front_nginx:
     build: ./nginx
