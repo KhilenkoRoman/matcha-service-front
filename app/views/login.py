@@ -1,28 +1,33 @@
-from app import app, settings
 import hashlib
 import html
-import json
-from flask import render_template, request, session, redirect, url_for
 import re
 from datetime import datetime
-from flask_mail import Message
-from app.models.users import *
 from random import randint
-from app.models.friendship import all_friends
-from app.models.notifications import get_notifications_by_user_id
-from app.models.location import *
-from app.views.newsfeed import get_not_friends
+
 import requests
+from flask import render_template, request, session, redirect, url_for
+from flask_mail import Message
+
+from app import app, settings
+from app.models.friendship import all_friends
+from app.models.users import *
 
 
 @app.route('/')
 def index():
 	if session.get('token'):
+
+		r = requests.get(settings['GATEWAY_URL'] + 'api/v1/images/', headers={'Authorization': f'JWT {session.get("token")}'})
+		if r.status_code == 200:
+			images = r.json()
+		else:
+			images = []
+
 		data = {
 			'all_posts': 'all_user_post',
 			'all_friends': all_friends(session.get('id_user_logged')),
 			"get_user_by_id": get_user_by_id,
-			"all_post_comments": 'all_post_comments',
+			"images": images,
 			"liked": 'liked',
 			"disliked": 'disliked',
 			"len_post_likes": 'len_post_likes',
@@ -33,6 +38,28 @@ def index():
 
 	return render_template('index-register.html')
 
+
+@app.route('/add_image', methods=['GET', 'POST'])
+def add_image():
+	if session.get('token') and request.method == 'POST':
+		data = {}
+		if not request.files:
+			data['result'] = 'no file'
+			return render_template('add_image.html', data=data)
+		r = requests.post(settings['GATEWAY_URL'] + 'api/v1/images/',
+						  headers={'Authorization': f'JWT {session.get("token")}'},
+						  files = {'image': request.files.get('file')})
+		if r.status_code == 200:
+			data['result'] = 'image uploaded'
+			return render_template('add_image.html', data=data)
+		else:
+			data['result'] = 'upload error'
+
+		return render_template('add_image.html', data=data)
+	elif session.get('token'):
+		return render_template('add_image.html', data={})
+
+	return render_template('index-register.html')
 
 
 def get_friendlist(id_user):
@@ -128,7 +155,6 @@ def activate():
 
 @app.route('/ajax_login', methods=['POST'])
 def ajax_login():
-	print('qweqwe')
 	if session.get('id_user_logged'):
 		return "already_logged"
 	l_login = html.escape(request.form['login'])
@@ -142,10 +168,7 @@ def ajax_login():
 		return "long_login"
 	if len(pwd) > 100:
 		return "long_pwd"
-
 	r = requests.post(settings['GATEWAY_URL'] + 'api/v1/user/token/', data={'email' : l_login, 'password': pwd})
-
-	print(r.text)
 
 	if r.status_code == 200:
 		session['token'] = r.json().get('token')

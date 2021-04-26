@@ -4,12 +4,12 @@ from app.models.location import *
 from math import sin, cos, sqrt, atan2, radians
 
 
-@app.route('/ajax_set_location', methods=['POST'])
-def ajax_set_location():
-	res = set_coords_to_id(int(request.form.get('id_user')), request.form.get('latitude'), request.form.get('longitude'))
-	if not res:
-		session['location'] = get_location_by_id(int(request.form.get('id_user')))
-	return "response"
+# @app.route('/ajax_set_location', methods=['POST'])
+# def ajax_set_location():
+# 	res = set_coords_to_id(int(request.form.get('id_user')), request.form.get('latitude'), request.form.get('longitude'))
+# 	if not res:
+# 		session['location'] = get_location_by_id(int(request.form.get('id_user')))
+# 	return "response"
 
 
 @app.route('/ajax_update_location', methods=['POST'])

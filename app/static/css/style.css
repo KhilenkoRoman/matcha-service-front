@@ -193,15 +193,15 @@ img.profile-photo{
 }
 
 img.profile-photo-lg{
-  height: 80px;
-  width: 80px;
-  border-radius: 50%;
+    height: 100px;
+    width: 100px;
+    border-radius: 3%;
 }
 
 img.profile-photo-md{
-	height: 50px;
-	width: 50px;
-	border-radius: 50%;
+    height: 100px;
+    width: 100px;
+    border-radius: 3%;
 }
 
 img.profile-photo-sm{
@@ -1161,6 +1161,7 @@ ul.online-users li span.online-dot{
   margin-bottom: 20px;
   overflow: hidden;
   position: relative;
+    padding-bottom: 20px;
 }
 
 .post-content img.post-image, video.post-video, .google-maps{
@@ -1172,8 +1173,15 @@ ul.online-users li span.online-dot{
   height: 300px;
 }
 
-.post-content .post-container{
-  padding: 20px;
+.post-container{
+      width: 102px;
+    border: 1px solid #ece7e7;
+    border-radius: 3px;
+    margin: 4px;
+}
+
+#all_posts{
+    display: flex;
 }
 
 .post-content .post-container .post-detail{

@@ -14,16 +14,16 @@
 			<div id="all_posts">
 				<!-- Post Content
 				================================================= -->
-				{% for image in data.images %}
-
-						<div class="post-container">
-							<a href="">
-								<img src="{{image.thumbnail}}" alt="user" class="profile-photo-md pull-left" />
-							</a>
-						</div>
-
-				{% endfor %}
-
+				<form method="post" action="/add_image" enctype="multipart/form-data" style="margin: 80px;">
+					 <div>
+						 {% if data.result %} <p style="font-weight: bold; font-size: 20px">{{data.result}}</p> {% endif %}
+					   <label for="image">Choose image to upload</label>
+					   <input type="file" id="image" name="file" accept="image/*" style="margin-top: 10px; margin-bottom: 15px; ">
+					 </div>
+					 <div>
+					   <button>Submit</button>
+					 </div>
+				</form>
 			</div>
 
 
